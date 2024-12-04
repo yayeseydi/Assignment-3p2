@@ -29,11 +29,17 @@ Apply the web tag to both droplets.
 Configuration for basic, premium, etc,.
 Setup Each Droplet:
 
+Afer the droplets are set up it should look like this:
+
+![droplets](images/droplets.png)
+
+
 Connect via SSH to each droplet.
 Install essential packages (nginx, ssh, etc.).
 Set up your directory structure (/var/lib/webgen).
 
 ``` sudo mkdir -p /var/lib/webgen/{bin,documents,HTML} ```
+
 
 ## Task 2: Configure a Load Balancer
 
@@ -45,9 +51,11 @@ VPC: Default.
 Tag: Use the "web" tag to balance traffic between your two droplets.
 Type: External/Public.
 Set up rules for HTTP traffic (port 80) and ensure SSL (optional).
-You csn rename it if you want
-Test Load Balancer:
+You can rename it if you want
 
-Note Make sure that when the loadbalancer is created it is correctly connected to both droplets and says Healthy
+![lb](images/lb.png)
+
+
+> Note: Make sure that when the loadbalancer is created it is correctly connected to both droplets and says Healthy
 
 
