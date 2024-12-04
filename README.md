@@ -23,11 +23,17 @@ Task 4: Configure the File Server
 ## Task 1: Create Two New DigitalOcean Droplets
 
 Go to DigitalOcean's Control Panel.
+
 Create Two Droplets:
+
 Choose Arch Linux as the operating system.
+
 Select the SFO3 region.
+
 Apply the web tag to both droplets.
+
 Configuration for basic, premium, etc,.
+
 Setup Each Droplet:
 
 Afer the droplets are set up it should look like this:
