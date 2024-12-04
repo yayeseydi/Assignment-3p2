@@ -1,9 +1,8 @@
 # Assignment-3 Part 2
+> Note: I am having issues generating images on this readme.
 
 ## Introduction
-
-In this assignment, you will:
-
+In this tutorial, we will:
 Set up two Arch Linux servers.
 Configure a load balancer to distribute traffic between the servers.
 Deploy an updated generate_index script.
@@ -61,6 +60,7 @@ You can rename it if you want
 > Note: Make sure that when the loadbalancer is created it is correctly connected to both droplets and says Healthy
 
 ## Task 3:Clone Repository
+> Note: Make sure that whatever you do to server 1 you are also doing to server 2. Git commits are the only things that do not apply
 
 Step 1: Clone the Updated Starter Code from the link
 
@@ -98,7 +98,6 @@ sudo touch /var/lib/webgen/documents/file-one
 ```
 sudo touch /var/lib/webgen/documents/file-two
 ```
-
 Step 6: Create an index.html File
 Generate a placeholder index.html file in the HTML directory:
 
@@ -106,3 +105,66 @@ Generate a placeholder index.html file in the HTML directory:
 sudo touch /var/lib/webgen/HTML/index.html
 ```
 
+## Task 4: Update Server Configuration for File Server
+Make sure server block can hadnle documents and requests. This is the part where we will be editing our server_block from assignment part 1.
+
+once you open your editor. (I am using neovim)
+
+```
+sudo vim /etc/nginx/sites-available/webgen.conf
+```
+Edit the script:
+
+ ```
+   listen 80;
+# Listen on IPv6 address for HTTP requests on port 80
+    listen [::]:80;
+
+    server_name localhost.webgen;
+
+    location / {
+
+#  This is the root for the web server
+    root /var/lib/webgen/HTML;
+
+# Default file
+  index index.html;
+
+# If not found it checks for the directory  ($uri/). If neither the file or directory is found, it will produce the code below
+        try_files $uri $uri/ =404;
+    }
+}
+
+# Handle /documents/ requests
+      location /documents {
+
+           alias /var/lib/webgen/documents/;
+           autoindex on;
+           autoindex_exact_size off;
+           autoindex_localtime on;
+           try_files $uri $uri/ =404;
+      }
+}
+```
+
+Make sure there aren't any errors using this command.
+
+```
+sudo nginx -t
+```
+If there are no errors you can proceed with 
+```
+sudo systemctl daemon-reload
+```
+```
+sudo systemctl start nginx.service
+```
+```
+sudo systemctl enable nginx.service
+```
+
+sudo systemctl daemon-reload: Reloads systemd to recognize changes in service files.
+
+sudo systemctl start nginx.service: Starts the Nginx web server immediately.
+
+sudo systemctl enable nginx.service: Configures Nginx to start automatically on system boot.
