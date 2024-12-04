@@ -1,0 +1,13 @@
+[Unit]
+# Describes the purpose of the timer, which is to trigger the service daily at 05:00
+Description=Run generate_index.service daily at 05:00
+
+[Timer]
+# Defines the schedule for the timer
+OnCalendar=*-*-* 05:00:00
+ # Ensures that if the system is off at the scheduled time, the service will be triggered as soon as the system is available
+Persistent=true
+
+[Install]
+# The timer is started when the system reaches the timers.target
+WantedBy=timers.target
