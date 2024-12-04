@@ -1,0 +1,15 @@
+[Unit]
+# Describes the service, explaining what it does
+Description=Generate Index HTML File
+
+# Specifies the user where the service runs, making sure it runs as the webgen user for security
+[Service]
+User=webgen
+# Specifies the group the service belongs to which is webgen with the proper permissions
+Group=webgen
+
+# Defines the command to run when starting the service. It also shows path to the script that generates the HTML file
+ExecStart=/var/lib/webgen/generate_index
+
+[Install]
+# Defines when the service should start.(When it reaches a state where multiple users can login
